@@ -10,6 +10,8 @@ import type {MouseEvent, ReactNode} from "react";
 import type {Position} from "./settings/components/position";
 import {useInternalStore} from "@ui/hooks.ts";
 import {shallowEqual} from "fast-equals";
+import SimpleMarkdownExt from "@structs/markdown.ts";
+import Markdown from "@ui/base/markdown.tsx";
 
 const spring = DiscordModules.ReactSpring;
 
@@ -80,14 +82,17 @@ class NotificationUI {
     show(notificationData: Notification) {
         // If there are many notifications of one ID. This will cause eccentric issues like notifications not closing.
         // Or duplicate notifications.
-        if (Notifications.notifications.find((notif: Notification) => notif.id == notificationData.id)) return;
 
-        this.upsertNotification(notificationData);
-        return {
+        const newData = {
             id: notificationData.id,
             close: () => this.hide(notificationData.id),
             isVisible: () => Notifications.notifications.find((n: Notification) => n.id === notificationData.id) !== undefined
         };
+
+        if (Notifications.notifications.find((notif: Notification) => notif.id == notificationData.id)) return newData;
+
+        this.upsertNotification(notificationData);
+        return newData;
     }
 
     upsertNotification(notificationData: Notification) {
@@ -184,7 +189,9 @@ const NotificationItem = ({notification}: { notification: Notification; position
                     ✕
                 </Text>
             </div>
-            <span className="bd-notification-body">{content}</span>
+            <span className="bd-notification-body">{<Markdown>
+                {content}
+            </Markdown>}</span>
             {actions.length > 0 && (
                 <div className="bd-notification-footer">
                     {actions.map((action, index) => (
