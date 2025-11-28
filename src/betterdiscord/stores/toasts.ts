@@ -41,7 +41,7 @@ export default new class Toasts extends Store {
      *
      * @param {string} content The string to show in the toast.
      * @param {object} options Options object. Optional parameter.
-     * @param {string} [options.type="default"] Changes the type of the toast stylistically and semantically. Choices: "default", "info", "success", "error", "warning". Default: "default"
+     * @param {string} [options.type="default"] Changes the type of the toast stylistically and semantically. Choices: "default", "info", "success", "error", "warning", "enabled", "disabled". Default: "default"
      * @param {boolean} [options.icon=true] Determines whether the icon should show corresponding to the type. A toast without type will always have no icon. Default: true
      * @param {number} [options.timeout=3000] Adjusts the time (in ms) the toast should be shown for before disappearing automatically. Default: 3000
      * @param {boolean} [options.forceShow=false] Whether to force showing the toast and ignore the bd setting
@@ -88,5 +88,15 @@ export default new class Toasts extends Store {
     /** Shorthand for `type = "error"` for {@link module:Toasts.show} */
     error(content: string, options: ToastOptions = {}) {
         return this.show(content, {...options, type: "error"});
+    }
+
+    /** Shorthand for `type = "enabled"` for {@link module:Toasts.show} */
+    enabled(content: string, options: ToastOptions = {}) {
+        return this.show(content, {...options, type: "enabled"});
+    }
+
+    /** Shorthand for `type = "disabled"` for {@link module:Toasts.show} */
+    disabled(content: string, options: ToastOptions = {}) {
+        return this.show(content, {...options, type: "disabled"});
     }
 };

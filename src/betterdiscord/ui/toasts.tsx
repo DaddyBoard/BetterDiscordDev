@@ -12,7 +12,7 @@ import type {AnimatedProps} from "@react-spring/web";
 
 const ReactSpring = DiscordModules.ReactSpring;
 
-export type ToastType = "default" | "info" | "success" | "warning" | "error";
+export type ToastType = "default" | "info" | "success" | "warning" | "error" | "enabled" | "disabled";
 
 export interface ToastProps {
     key: number;
