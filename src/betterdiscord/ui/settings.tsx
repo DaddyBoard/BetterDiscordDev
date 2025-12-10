@@ -81,7 +81,7 @@ interface SidebarItemLayout {
 }
 
 interface SectionLayout {
-    useLabel(): React.ReactNode;
+    useTitle(): React.ReactNode;
     buildLayout(): SidebarItemLayout[];
     usePredicate?(): boolean;
 }
@@ -415,7 +415,7 @@ export default new class SettingsRenderer {
 
                 return layouts;
             },
-            useLabel: () => Object.assign(<LayerSettingTitle />, {toString: () => "BetterDiscord"}),
+            useTitle: () => Object.assign(<LayerSettingTitle />, {toString: () => "BetterDiscord"}),
         });
 
         Patcher.after("SettingsManager", rootLayout, "buildLayout", (that, args, res) => {
